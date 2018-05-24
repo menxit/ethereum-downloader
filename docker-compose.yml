@@ -1,4 +1,5 @@
 version: '3.0'
+
 services:
    parity:
        container_name: parity
@@ -11,16 +12,5 @@ services:
        image: parity/parity:stable
        volumes:
        - ./config.toml:/parity/config.toml:ro
-       - ./data:/parity/data
+       - ./parity/data:/parity/data
        command: --config /parity/config.toml -d /parity/data
-    
-   downloader:
-       container_name: downloader
-       image: node
-       depends_on:
-       - parity
-       working_dir: /app
-       volumes:
-       - ./downloader/:/app
-       - ./database:/database
-       command: bash -c "sleep 10; node index.js > /database/transactions.dat"
